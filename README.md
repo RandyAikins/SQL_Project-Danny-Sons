@@ -1,6 +1,6 @@
 # SQL_Project-Danny-Sons
 
-Is a leading retail company with the reputation of providing high quality TV brands. Unfortunately, competition has become stifling and Danny & Sons Electronic must find ways to stay ahead of the curve and maintain competitive edge.
+Danny & Sons Electronics a leading retail company with the reputation of providing high quality TV brands. Unfortunately, competition has become stifling and Danny & Sons Electronic must find ways to stay ahead of the curve and maintain competitive edge.
 
 # Task
 Generate insights from company database to guide future sales decisions to stay ahead of competition.
