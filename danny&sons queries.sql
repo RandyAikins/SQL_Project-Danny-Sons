@@ -51,11 +51,11 @@ GROUP BY brand
 ORDER BY total_sales DESC
 LIMIT 5;
 
--- 10. Difference between original price and selling price
-SELECT brand, original_price, selling_price, (selling_price - original_price) AS price_difference
+-- 10. Discount
+SELECT brand, original_price, selling_price, (selling_price - original_price) AS discount
 FROM sales_ds;
 
--- 11. Percentage difference between origianl and selling price
+-- 11. Discount Percent
 SELECT brand, original_price, selling_price, 
 CONCAT(ROUND(((original_price::FLOAT - selling_price::FLOAT)/original_price::FLOAT)*100::FLOAT),'%')
 AS discount_percent
@@ -68,7 +68,7 @@ FROM sales_ds
 WHERE brand IN ('Hisense', 'Blaupunkt')
 GROUP BY brand;
 
--- 13. Total sales per Panasonic opereting systems
+-- 13. Total sales per Panasonic operating systems
 SELECT operating_system, SUM(selling_price)
 FROM sales_ds
 WHERE brand = 'Panasonic'
