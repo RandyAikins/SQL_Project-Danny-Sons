@@ -146,3 +146,16 @@ JOIN sales_ds
 ON customer_id = sales_id
 WHERE resolution LIKE '%LED';
 
+
+SELECT
+   CASE WHEN length_of_service <= 7 THEN '0 - 7 years'
+        WHEN length_of_service <= 14 THEN '8 - 14 years'
+	    WHEN length_of_service <= 21 THEN '15 - 21 years'
+	    WHEN length_of_service <= 28 THEN '21 - 28 years'
+	    ELSE '29 - 35 years'
+	    END AS service_length_category,
+COUNT(length_of_service) AS number_of_employees
+FROM sftwk
+GROUP BY service_length_category
+ORDER BY number_of_employees;
+
