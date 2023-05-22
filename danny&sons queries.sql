@@ -1,5 +1,7 @@
 SELECT * FROM sales_ds LIMIT 3;
 
+SELECT * FROM customer_ds LIMIT 3;
+
 -- 1. Number of sales by brand
 SELECT brand, COUNT(brand) AS number_of_sales 
 FROM sales_ds
@@ -51,11 +53,11 @@ GROUP BY brand
 ORDER BY total_sales DESC
 LIMIT 5;
 
--- 10. Discount
-SELECT brand, original_price, selling_price, (selling_price - original_price) AS discount
+-- 10. Difference between original price and selling price
+SELECT brand, original_price, selling_price, (selling_price - original_price) AS price_difference
 FROM sales_ds;
 
--- 11. Discount Percent
+-- 11. Percentage difference between origianl and selling price
 SELECT brand, original_price, selling_price, 
 CONCAT(ROUND(((original_price::FLOAT - selling_price::FLOAT)/original_price::FLOAT)*100::FLOAT),'%')
 AS discount_percent
@@ -68,7 +70,7 @@ FROM sales_ds
 WHERE brand IN ('Hisense', 'Blaupunkt')
 GROUP BY brand;
 
--- 13. Total sales per Panasonic operating systems
+-- 13. Total sales per Panasonic opereting systems
 SELECT operating_system, SUM(selling_price)
 FROM sales_ds
 WHERE brand = 'Panasonic'
@@ -101,3 +103,46 @@ SELECT brand, ROUND(AVG(rating),1) AS average_rating
 FROM sales_ds
 GROUP BY brand
 ORDER BY brand;
+
+-- 17. Number of TVs purchase by each customer along with their personal details
+SELECT CONCAT(first_name,' ', last_name) full_name, address, phone_number, COUNT(sales_id) num_of_purchases
+FROM customer_ds 
+JOIN sales_ds 
+ON customer_id = sales_id
+GROUP BY full_name, address, phone_number;
+
+-- 18. Customer information and sales data for customers who purchased a TV above $400k
+SELECT (first_name||' '||last_name) full_name, address, phone_number, brand, resolution, size, operating_system, selling_price
+FROM customer_ds a
+JOIN sales_ds b
+ON a.customer_id = b.sales_id
+WHERE selling_price > 400000;
+
+-- 19. Customer information and sales data for customers who purchased a TV with a Android operating system
+SELECT (first_name||' '||last_name) full_name, address, phone_number, brand, resolution, size, operating_system, selling_price
+FROM customer_ds a
+JOIN sales_ds b
+ON a.customer_id = b.sales_id
+WHERE operating_system IN ('Tizen', 'Android');
+
+-- 20. Name and phone number of the customers who have not made any TV purchases
+SELECT (first_name||' '||last_name) full_name, phone_number
+FROM customer_ds 
+RIGHT JOIN sales_ds 
+ON customer_id = sales_id
+WHERE customer_ds IS NULL;
+
+-- 21. Customers bought TVs at a discounted price
+SELECT CONCAT(first_name,' ', last_name) full_name, original_price, selling_price
+FROM customer_ds 
+JOIN sales_ds 
+ON customer_id = sales_id
+WHERE original_price > selling_price;
+
+-- 22. Name and address of the customer who purchased a TV with a LED Resolution
+SELECT CONCAT(first_name,' ',last_name) full_name, address, resolution
+FROM customer_ds
+JOIN sales_ds
+ON customer_id = sales_id
+WHERE resolution LIKE '%LED';
+
