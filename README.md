@@ -9,7 +9,20 @@ Generate insights from company database to guide future sales decisions to stay 
 - Created a database Danny& Sons in Postgres
 - Created table sales_ds in the database with the columns below
 - Imported database CSV file into Postgres 
-- Performed some queries
+- Performed some queries using:
+- SELECT DISTINCT
+- COUNT, SUM, AVERAGE
+- GROUP BY, HAVING
+- ORDER BY
+- BETWEEN, IN
+- WILDCARDS: LIKE
+- ALIASES
+- CAST
+- CONCATENATE
+- ROUND
+- LIMIT
+- JOINS
+- CASE
 
 # Findings
 - Samsung  is the highest selling brand in both quantities and amount with 140 TVs sold at $14.89m.
